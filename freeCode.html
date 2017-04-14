@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  .main {
+    width: 100%;
+    height: 500px;
+    border: 1px solid red;
+    display: flex;
+
+  }
+
+  .left {
+    width: 300px;
+    height: auto;
+    background: gold;
+    flex: 0 1 300px;
+  }
+
+  .right {
+    width: 300px;
+    height: auto;
+    background: gold;
+    flex: 0 0 300px;
+
+  }
+
+  .center {
+    background: red;
+    flex: 1 1 auto;
+  }
+
+  .supper {
+    border: 1px solid red;
+    width: 500px;
+    height: 500px;
+    position:;
+    top: 50px;
+    left: 50px;
+  }
+
+  .sub {
+    width: 300px;
+    height: 300px;
+    border: 1px solid gold;
+    position: absolute;
+    top: 10px;
+    left: 10px;;
+  }
+</style>
+<body>
+<!--<div class="main">
+  <div class="left"></div>
+  <div class="center"></div>
+  <div class="right"></div>
+</div>-->
+阿斯蒂芬
+<div>
+  <div class="supper">
+    <div class="sub"></div>
+  </div>
+</div>
+
+</body>
+
+<script>
+  function pair(str) {
+    var obj = {
+      A: 'T',
+      T: 'A',
+      C: 'G',
+      G: 'C'
+    };
+    var strArray = str.split('');
+    var result = [];
+    for (var i = 0; i < strArray.length; i++) {
+      var value = `["${strArray[i]}","${obj[strArray[i]]}"]`;
+      result.push(value);
+    }
+    console.log('xxx');
+    console.log(result);
+    var resultArr = result.join(',').split('');
+    resultArr.unshift('[');
+    resultArr.push(']');
+    console.log(resultArr.join(''))
+    return str;
+  }
+
+  pair("GCG");
+  // js继承。闭包，
+  // css display,position,angular 表单,
+  //js 存储方式.
+  //gulp webpack 区别.
+  //webpack 怎么切割的。
+  //add(2,5);    //运行结果为 7
+  //add(2)(5);    //运行结果为 7
+  let c = ({b} = {b: "xxx"}) => {
+    return b
+  };
+  c();
+  console.log(c())
+  var add = function () {
+    var result = 0;
+    var arg = Array.prototype.slice.call(arguments);
+    if (arg.length > 0) {
+      result = arg.reduce(function (a, b) {
+        return a + b;
+
+      })
+    }
+    var temp = function () {
+      result = Array.prototype.slice.call(arguments).reduce(function (a, b) {
+        return a + b;
+      }, result);
+      return temp;
+    }
+    temp.toString = function () {
+      return result;
+    }
+    return temp;
+  };
+
+
+  function fearNotLetter(str) {
+
+    var result = [];
+    for (var i = 1, current = str.charCodeAt(0), len = str.length; i < len; i++) {
+      while (++current !== str.charCodeAt(i)) {
+        result.push(current);
+      }
+    }
+    return String.fromCharCode.apply([], result) || void(0);
+  }
+
+  console.log(fearNotLetter("abe"));
+
+
+  function unite(arr1, arr2, arr3) {
+    var argLen = arguments.length;
+    var result = [];
+    for (var i = 0; i < argLen; i++) {
+      var arrIndex = arguments[i];
+      for (var j = 0; j < arrIndex.length; j++) {
+        if (result.indexOf(arrIndex[j]) == -1) {
+          result.push(arrIndex[j]);
+        }
+      }
+    }
+    return result;
+  }
+
+  console.log(unite([1, 3, 2], [5, 2, 1, 4], [2, 1]));
+
+
+  function sumFibs(num) {
+    var result = [1, 1];
+    if (num > result.length) {
+      for (var i = result.length; i < num; i++) {
+        result[i] = result[i - 1] + result[i - 2];
+      }
+    }
+    /*num = result.reduce(function (a, b) {
+     return a + b;
+     });*/
+    return result[num - 1];
+  }
+
+  console.log(sumFibs(1000));
+
+
+  var IterMemoFib = function () {
+    var cache = [1, 1];
+    return function (n) {
+      if (n >= cache.length) {
+        for (var i = cache.length; i < n; i++) {
+          cache[i] = cache[i - 2] + cache[i - 1];
+        }
+      }
+      return cache[n - 1];
+    }
+  }();
+
+  console.log(IterMemoFib(75024))
+
+  function sumFibs2(num) {  //求得小于num的斐波那契数列   注意：此数组最后一项大于num
+    var arr = [1, 1];
+    for (var i = 0; i < num; i++) {
+      arr[i + 2] = arr[i] + arr[i + 1];
+      if (arr[i + 2] > num) {
+        break;
+      }
+    }  //删除最后一项，过滤掉数列中的偶数项
+    arr.splice(-1, 1);
+    arr = arr.filter(function (n) {
+      if (n % 2 === 0) {
+        return false;
+      }
+      return true;
+    });  //对数列进行求和
+    var result = arr.reduce(function (a, b) {
+      return a + b;
+    });
+    return result;
+  }
+
+  console.log(sumFibs2(75024))
+
+
+  function smallestCommons(arr) {
+    var newArr = [];
+    for (var i = Math.min(arr[0], arr[1]); i <= Math.max(arr[0], arr[1]); i++) {
+      newArr.push(i);
+    }
+    var value = newArr.reduce(function (a, b) {
+      var minValue = Math.min(a, b);
+      var multiple = 1;
+      for (var i = 2; i <= minValue; i++) {
+        if (a % i == 0 && b % i == 0) {
+          a = a / i;
+          b = b / i;
+          multiple *= i;
+          minValue = Math.min(a, b);
+          i = 1;
+        }
+      }
+      return a * b * multiple;
+    });
+    return value;
+  }
+
+
+  console.log("最小公倍数");
+  console.log(smallestCommons([1, 13]))
+
+
+  function find(arr, func) {
+    var num = 0;
+    num = arr.filter(function (value) {
+      return func(value);
+    }).shift();
+    return num;
+  }
+
+  console.log(find([1, 2, 3, 4], function (num) {
+    return num % 2 === 0;
+  }));
+
+
+  //二个参数，func，是一个函数。用来测试数组的第一个元素，如果返回fasle，
+  // 就从数组中抛出该元素(注意：此时数组已被改变)，继续测试数组的第一个元素，
+  // 如果返回fasle，继续抛出，直到返回true。
+  function drop(arr, func) {
+    // Drop them elements.
+    if (arr.length <= 0) {
+      return [];
+    }
+    var value = arr.shift();
+    if (func(value)) {
+      arr.unshift(value);
+    } else {
+      drop(arr, func);
+    }
+    return arr
+  }
+
+  console.log(drop([1, 2, 3, 4], function (n) {
+    return n > 5;
+  }));
+
+  //对嵌套的数组进行扁平化处理。你必须考虑到不同层级的嵌套。
+  function steamroller(arr) {
+    // I'm a steamroller, baby
+
+
+    return arr.reduce(function (a, b) {
+      return a.concat(Array.isArray(b) ? steamroller(b) : b);
+    }, []);
+  }
+
+  console.log(steamroller([1, [2], [3, [[4]]]]));
+
+
+</script>
+</html>

@@ -1,0 +1,20 @@
+.welcome {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: red;
+  background: url("shouye.png");
+  display: flex;
+  .wrap {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    .register {
+      height: 40px;
+
+    }
+  }
+
+}

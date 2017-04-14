@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <div id="app" class="app">
     <router-view></router-view>
   </div>
 </template>
@@ -32,13 +31,8 @@
   }
 </script>
 
-<style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
+<style lang="scss" scoped type="text/css">
+  @import "res/css/reset.css";
+  @import "res/css/animate.css";
+  @import "app.scss";
 </style>
