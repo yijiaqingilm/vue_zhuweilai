@@ -1,5 +1,6 @@
 var path = require('path')
 var utils = require('./utils')
+var webpack = require('webpack');
 
 var projectRoot = path.resolve(__dirname, '../')
 const vuxLoader = require('vux-loader')
@@ -7,7 +8,11 @@ const vuxLoader = require('vux-loader')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+
+var px2rem = require('postcss-px2rem');
+
+
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -52,7 +57,7 @@ var webpackConfig = {
       },
       {
         test: /\.scss$/,
-        loader: ["style", "css", "sass"]
+        loader: ["style", "css", "sass", "postcss"]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -71,7 +76,19 @@ var webpackConfig = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: function () {
+          return [px2rem({remUnit: 75})];
+        },
+        vue: {
+          postcss: [require('postcss-px2rem')({remUnit: 34.5})]
+        }
+      }
+    })
+  ]
 }
 
 

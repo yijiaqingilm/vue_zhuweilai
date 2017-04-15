@@ -1,5 +1,7 @@
 <template>
-  <div>this is user component</div>
+  <div>this is user component xxx
+    <router-view></router-view>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
