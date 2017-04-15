@@ -34,10 +34,6 @@
         this.$http.post('/zhuweilai/api/user/login', this.user).then((response) => {
           var result = response.body;
           var data = result.data;
-          console.log('hihi');
-          console.log(data);
-          console.log(router);
-          console.log('xxx');
           router.push({path: 'user/profile', query: {userId: 123}});
         });
       }
